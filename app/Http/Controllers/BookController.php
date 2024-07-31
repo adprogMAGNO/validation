@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Controllers\UserTask;
+use App\Models\UserTask;
 use Illuminate\Http\Request;
 
 class UserTaskController extends Controller
@@ -27,7 +27,7 @@ class UserTaskController extends Controller
      */
     public function store(Request $request)
     {
-        $usertask = new UserTask();
+        $UserTask = new usertask();
         $request->validate([
             'task_name'      => 'required',
             'status'         =>  'required',
