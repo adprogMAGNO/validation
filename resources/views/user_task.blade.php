@@ -1,24 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
-   
-</head>
-<body>
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{__('User Task Form')}</div>
 
-    <form action="{{ url('user_tasks') }}" method="POST">
+                <div class="card-body">
+                    @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{session('success')}}
+                    </div>
+                    @endif
+                </div>
+
+                <form action="{{ url('user_tasks') }}" method="POST">
         @csrf
-        <div>
+        <div class="row mb-3 mx-3">
         <label for="task_name">Task Name</label>
-        <input type="text" id="name" name="task_name" value="{{ old('task_name') }}">
+        <input type="text" id="name" name="task_name" class="form-control @error('tasks_name') is-invalid @enderror" value="{{ old('tasks_name') }}">
         @error('task_name')
-        <div>{{ $message }}</div>
+        <div class="invalid-feedback p-0" role="alert">{{ $message }}</div>
         @enderror
         </div>
 
-        <div>
+        <div class="invalid-feedback p-0" role="alert">
             <label for="status">Status:</label>
             <select name="status" id="status">
             <option value="">--</option>
@@ -27,19 +33,19 @@
             <option value="completed">Completed</option>
             </select>
             @error('status')
-               <div>{{$message}}</div>
+               <divdiv class="invalid-feedback p-0" role="alert">{{$message}}</div>
             @enderror
         </div>
 
-        <div>
+        <div class="invalid-feedback p-0" role="alert">
             <label for="description">Description:</label>
-            <textarea name="description" id="description" rows="5" style="width:100%"></textarea>
+            <textarea name="description" id="description" rows="5" style="width:100%" class="form-control @error('tasks_name') is-invalid @enderror"></textarea>
             @error('description')
               <div>{{$message}}</div>
             @enderror
         </div>
 
-        <div>
+        <div class="invalid-feedback p-0" role="alert">
             <label for="deadline">Deadline:</label>
             <input type="date" id="deadline" name="deadline" value="{{ old('deadline') }}"/>
             @error('deadline')
@@ -54,9 +60,9 @@
 
     </form>
 
-  @if(session('success'))
-        <div>{{session('success')}}</div>
-  @endif
 
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

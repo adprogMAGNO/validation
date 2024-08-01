@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\UserTask;
+
 use Illuminate\Http\Request;
 
-class UserTaskController extends Controller
+
+use App\Models\Book;
+
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $books = Book::all();
+        return view('books.index', ['books' => $books]);
     }
 
     /**
@@ -19,7 +23,7 @@ class UserTaskController extends Controller
      */
     public function create()
     {
-        return view('user_task');
+        return view('books.create');
     }
 
     /**
@@ -27,20 +31,23 @@ class UserTaskController extends Controller
      */
     public function store(Request $request)
     {
-        $UserTask = new usertask();
         $request->validate([
-            'task_name'      => 'required',
-            'status'         =>  'required',
-            'description'    =>  'required',
-            'deadline'       =>  'required|date',
+            'title' => 'required',
+            'author' => 'required',
+            'description' => 'required',
+            'isbn' => 'required',
+            'published_year' => 'required|date',
         ]);
-        $UserTask->task_name = $request['task_name'];
-        $UserTask->status = $request['status'];
-        $UserTask->description = $request['description'];
-        $UserTask->deadline = $request['deadline'];
-        $UserTask->save();
 
+        $book = new Book();
+        $book->title = $request['title'];
+        $book->author = $request['author'];
+        $book->description = $request['description'];
+        $book->isbn = $request['isbn'];
+        $book->published_year = $request['published_year'];
+        $book->save();
 
+        // return redirect()->back();
         return back()->with('success', 'Data saved successfully');
     }
 
@@ -57,7 +64,8 @@ class UserTaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['book'] = Book::find($id);
+        return view('books.update', $data);
     }
 
     /**
@@ -65,7 +73,15 @@ class UserTaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->title = $request['title'];
+        $book->author = $request['author'];
+        $book->description = $request['description'];
+        $book->isbn = $request['isbn'];
+        $book->published_year = $request['published_year'];
+        $book->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -73,6 +89,8 @@ class UserTaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+        return redirect()->to('books');
     }
 }
