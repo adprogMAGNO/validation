@@ -14,11 +14,11 @@
                     @endif
                 </div>
 
-                <form action="{{ url('user_tasks') }}" method="POST">
+                <form action="{{ url('user_task') }}" method="POST">
         @csrf
         <div class="row mb-3 mx-3">
         <label for="task_name">Task Name</label>
-        <input type="text" id="name" name="task_name" class="form-control @error('tasks_name') is-invalid @enderror" value="{{ old('tasks_name') }}">
+        <input type="text" id="name" name="task_name" class="form-control @error('task_name') is-invalid @enderror" value="{{ old('task_name') }}">
         @error('task_name')
         <div class="invalid-feedback p-0" role="alert">{{ $message }}</div>
         @enderror
@@ -39,7 +39,7 @@
 
         <div class="invalid-feedback p-0" role="alert">
             <label for="description">Description:</label>
-            <textarea name="description" id="description" rows="5" style="width:100%" class="form-control @error('tasks_name') is-invalid @enderror"></textarea>
+            <textarea name="description" id="description" rows="5" style="width:100%" class="form-control @error('task_name') is-invalid @enderror"></textarea>
             @error('description')
               <div>{{$message}}</div>
             @enderror

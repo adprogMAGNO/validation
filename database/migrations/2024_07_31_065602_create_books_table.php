@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('user_task', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('author')->nullable();
-            $table->string('description')->nullable();
-            $table->string('isbn')->nullable();
-            $table->date('published_year')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->string('task_name')->nullable();
+            $table->enum('status', ['Pending', 'On process', 'Complete', 'Cancelled'])->nullable();
+            $table->text('description')->nullable();
+            $table->date('published')->nullable();
+            $table->date('deadline')->nullable();
+            $table->date('completed_at')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('user_task');
     }
 };
